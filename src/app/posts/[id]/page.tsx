@@ -7,19 +7,24 @@ import { notFound } from "next/navigation";
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
-export default async function PostPage({ params }: { params: { id: string } }) {
-  const id = Array.isArray(params.id) ? params.id[0] : params.id?.trim();
-  if (!id) return notFound();
+type Params = { id: string };
 
-  const post = await ssrFetchPost(id);
+export default async function PostPage(
+  { params }: { params: Promise<Params> }
+) {
+  const { id } = await params;
+  const safeId = id?.trim();
+  if (!safeId) return notFound();
+
+  const post = await ssrFetchPost(safeId);
   if (!post) return notFound();
 
   return (
     <>
       <Header />
       <main style={{ maxWidth: 880, margin: "0 auto", padding: "24px 16px" }}>
-        <SWRConfig value={{ fallback: { [`/posts/${id}`]: post } }}>
-          <PostView postId={id} />
+        <SWRConfig value={{ fallback: { [`/posts/${safeId}`]: post } }}>
+          <PostView postId={safeId} />
         </SWRConfig>
       </main>
     </>
