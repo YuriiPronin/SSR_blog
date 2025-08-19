@@ -2,6 +2,10 @@
 
 Односторінковий блог з SSR (App Router), клієнтським кешем через SWR, станом у Redux Toolkit і валідацією форм через Zod + React Hook Form. Дані зберігаються у Firebase **Firestore**, автентифікація — **Anonymous**.
 
+## 🚀 Live Demo
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000?logo=vercel)](https://ssr-blog-ashen.vercel.app/)
+
+
 ## ⚙️ Стек
 - **Next.js 15 (App Router, SSR/SSG)**
 - **TypeScript**
